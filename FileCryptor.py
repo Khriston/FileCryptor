@@ -29,3 +29,33 @@ def encrypt(arg,password):
     g.close()
     f.close()
     print("Done encrypting.")
+    
+def decrypt(arg,password):
+    if ".crypted" not in arg:
+        print("Wrong filetype. Needs to be <.crypted>.")
+        return 0
+    m = hashlib.sha1()
+    g = open(arg[:-8],"at",encoding="utf-8")
+    with open(arg,encoding="utf-8") as f:
+        flag = 1
+        for line in f:   
+            if flag:
+                original = line
+                flag = 0
+            else:
+                i = 0
+                newText = ''
+                for char in line:
+                    newChar = ord(char) - ord(password[ i % len(password)]) #vezi cerinta pt detalii
+                    if newChar < 0: #tratez cazul in care diff<0
+                        newChar = 255 + newChar
+                    newText += str(chr(newChar))
+                    i =+ 1 #index pentru caracterul curent
+                m.update(newText.encode('utf-8'))
+                g.write(newText)
+    f.close()
+    g.close()
+    if str(m.hexdigest()).strip() == str(original).strip():
+        print("Done decrypting.")
+    else:
+        print("Wrong password.")
