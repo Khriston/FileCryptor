@@ -59,3 +59,14 @@ def decrypt(arg,password):
         print("Done decrypting.")
     else:
         print("Wrong password.")
+        
+def command(arg):
+    if arg=="encrypt":
+        encrypt(sys.argv[2],sys.argv[3])
+    elif arg=="decrypt":
+        decrypt(sys.argv[2],sys.argv[3])
+    else:
+        print('Wrong command. Use "encrypt" or "decrypt".')
+    return 0
+    
+command(sys.argv[1])
