@@ -3,7 +3,7 @@ import hashlib
 import os
 
 def encrypt(arg,password):
-    g = open((arg+".crypted"),"at",encoding="utf-8")  
+    g = open((arg+".crypted"),"at", encoding="utf-8")  
     m = hashlib.sha1()
     f = open(arg,"r")
     while True:
@@ -14,7 +14,7 @@ def encrypt(arg,password):
     has=m.hexdigest()
     #print(has)
     g.write(str(has) + '\n')
-    with open(arg,encoding="utf-8") as f:
+    with open(arg, encoding="utf-8") as f:
         i = 0
         for line in f:   
             newText = ''
